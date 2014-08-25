@@ -42,7 +42,7 @@ module Resque
       end
 
       def self.each(offset = 0, limit = self.count, queue = :failed, class_name = nil, order = 'desc')
-        items = all(offset, limit, queue, order)
+        items = all(offset, limit, queue)
         items = [items] unless items.is_a? Array
         if order.eql? 'desc'
           items.reverse!
