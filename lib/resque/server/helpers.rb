@@ -37,7 +37,7 @@ Resque::Server.helpers do
   end
 
   def failed_order
-    params[:order] || 'desc'
+    params[:order] || 'asc'
   end
 
   def failed_class_counts(queue = params[:queue])
