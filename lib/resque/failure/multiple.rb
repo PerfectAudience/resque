@@ -22,6 +22,11 @@ module Resque
         @backends.each(&:save)
       end
 
+      # Returns an array of all the failed queues in the system
+      def self.queues
+        classes.first.queues
+      end
+
       # The number of failures.
       def self.count(*args)
         classes.first.count(*args)
@@ -51,8 +56,14 @@ module Resque
         classes.first.requeue(*args)
       end
 
-      def self.remove(index)
-        classes.each { |klass| klass.remove(index) }
+      def self.remove(*args)
+        classes.each { |klass|
+          if klass == Resque::Failure::RedisMultiQueue
+            klass.remove(*args)
+          else
+            klass.remove(args.first)
+          end
+        }
       end
     end
   end
