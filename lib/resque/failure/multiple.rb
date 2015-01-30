@@ -65,6 +65,10 @@ module Resque
           end
         }
       end
+
+      def self.requeue_queue(*args)
+        classes.first.requeue_queue(*args)
+      end
     end
   end
 end
